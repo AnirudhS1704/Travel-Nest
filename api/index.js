@@ -1,3 +1,4 @@
+dotenv = require('dotenv')
 const express = require('express');
 const bodyParser = require("body-parser");
 const cors = require("cors");
@@ -17,6 +18,8 @@ const bcryptSalt = bcrypt.genSaltSync(10);
 const jwtSecret = "ca5d75b207784d702dbafb074eeafc4caa11b2fae5709a2c5fb0a69c353c1e6f77caa584be3af743b1117677bda7b1937221bfa335a22b614a69df5c33e3246";
 
 const app = express();
+dotenv.config();
+const port = process.env.PORT || 4000;
 app.use(cookieParser());
 app.use(cors({credentials: true}));
 app.use(express.json());
@@ -26,10 +29,10 @@ app.use(bodyParser.urlencoded({
     extended: true,
 }));
 
-// username: anirudhS2003
-//password: fz568gSCNAFm0PsT
+const mongo_un=process.env.MONGO_UID
+const pwd=process.env.MONGO_PWD
 
-mongoose.connect('mongodb+srv://anirudhS2003:fz568gSCNAFm0PsT@cluster0.n8gfnvm.mongodb.net/?retryWrites=true&w=majority');
+mongoose.connect('mongodb+srv://'+mongo_un+':'+pwd+'@cluster0.n8gfnvm.mongodb.net/?retryWrites=true&w=majority');
 
 
 app.get("/test", (req, res)=>{
@@ -59,10 +62,6 @@ if (typeof localStorage === "undefined" || localStorage === null) {
 app.post("/login", async (req, res)=>{
     const {email, password} = req.body;
     myUserFound = await User.findOne({email});
-
-    // localStorage.setItem('id', email);
-    //  console.log("My id: "+localStorage.getItem('id'));
-
    
       localStorage.setItem('email', email);
       console.log("in login: "+localStorage.getItem('email'));
@@ -269,4 +268,4 @@ app.post("/save-places", async(req, res,)=>{
 
 
 
-app.listen(4000)
+app.listen(port)
