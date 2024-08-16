@@ -13,7 +13,7 @@ import PlacePage from './pages/PlacePage';
 import BookingsPage from './pages/BookingsPage';
 import BookingPage from './pages/BookingPage';
 
-axios.defaults.baseURL = "https://travel-nest-backend.onrender.com";
+axios.defaults.baseURL = "https://travel-nest-xk58.onrender.com";
 
 function App() {
   console.log("Email: "+ localStorage.getItem('email'));
